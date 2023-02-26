@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Minha caixa registradora</title>
+  <script src="caixa-registradora.js"></script>
+</head>
+<body>
+  <button onclick="iniciarAtendimento()">Iniciar atendimento</button>
+  <button onclick="adicionarItem()">Adicionar item</button>
+  <button onclick="fecharConta()">Fechar conta</button>
+  <p id="mensagem"></p>
+  <script>
+    const caixa = new CaixaRegistradora();
+
+    function adicionarProduto() {
+      const codigoBarra = Number(prompt("Digite o código de barras do produto"));
+      const preco = Number(prompt("Digite o preço do produto"));
+      const nome = prompt("Digite o nome do produto");
+      caixa.adicionarProduto(codigoBarra, preco, nome);
+      alert("Produto adicionado ao estoque!");
+    }
+
+    function iniciarAtendimento() {
+      const nomeCliente = prompt("Digite o nome do cliente");
+      caixa.iniciarAtendimento(nomeCliente);
+      document.getElementById("mensagem").innerHTML = `Atendimento iniciado para ${nomeCliente}`;
+    }
+
+    function adicionarItem() {
+      const codigoBarra = Number(prompt("Digite o código de barras do produto"));
+      const quantidade = Number(prompt("Digite a quantidade desejada"));
+      caixa.adicionarItem(codigoBarra, quantidade);
+      document.getElementById("mensagem").innerHTML = `Item adicionado à conta`;
+    }
+
+    function fecharConta() {
+      const dinheiro = Number(prompt("Digite o valor em dinheiro"));
+      caixa.fecharConta(dinheiro);
+      document.getElementById("mensagem").innerHTML = `Conta fechada com sucesso!`;
+    }
+  </script>
+</body>
+</html>
