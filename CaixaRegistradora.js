@@ -32,12 +32,18 @@ class CaixaRegistradora {
   
     iniciarAtendimento(nomeCliente) {
       console.log(`Iniciando atendimento para ${nomeCliente}`);
+      //document.getElementById("iniciar").disabled = true;
+      this.resumo = ""
+      document.getElementById("mensagem").innerHTML = `--mensagem de status--`;
+      document.getElementById("resumo").innerHTML = `--resumo da compra--`;
     }
   
     adicionarItem(codigoBarra, quantidade) {
       const produto = this.estoque.find((p) => p.codigoBarra === codigoBarra);
       if (produto) {
         this.conta += produto.preco * quantidade;
+        this.resumo+= (`${quantidade}x ${produto.nome} = R$ ${(produto.preco * quantidade).toFixed(2)}<br>`);
+        document.getElementById("resumo").innerHTML = this.resumo;
         console.log(`${quantidade}x ${produto.nome} adicionado(s) à conta`);
         document.getElementById("mensagem").innerHTML = `Item ${codigoBarra} adicionado à conta`;
       } else {
@@ -50,15 +56,23 @@ class CaixaRegistradora {
       console.log(`Total da conta: R$${this.conta.toFixed(2)}`);
       return this.conta;
     }
+ 
+    listaTotal() {
+        this.resumo+=`Total da conta: R$${this.conta.toFixed(2)}`
+        document.getElementById("resumo").innerHTML = this.resumo;
+      }
   
     fecharConta(dinheiro) {
       const troco = dinheiro - this.conta;
       if (troco >= 0) {
         console.log(`Conta fechada com sucesso! Troco: R$${troco.toFixed(2)}`);
-        this.estoque = [];
+        this.resumo+=`<br>Valor recebido: R$${dinheiro.toFixed(2)}<br> Troco: R$${troco.toFixed(2)}<br>Conta fechada com sucesso!`
+        document.getElementById("resumo").innerHTML = this.resumo;
+        //this.estoque = [];
         this.conta = 0;
       } else {
         console.log(`Dinheiro insuficiente para fechar a conta`);
+        document.getElementById("mensagem").innerHTML = `Dinheiro insuficiente para fechar a conta`;
       }
     }
   }

@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-6">
                 <h2>FUNÇÕES DE VENDA</h2>
-                <button onclick="iniciarAtendimento()">Iniciar atendimento</button>
+                <button onclick="iniciarAtendimento()" id="iniciar">Iniciar atendimento</button>
                 <button onclick="adicionarItem()">Adicionar item</button>
                 <button onclick="fecharConta()">Fechar conta</button>
                 <p id="mensagem">--mensagem de status--</p>
@@ -61,7 +61,8 @@
     }
 
     function fecharConta() {
-      const dinheiro = Number(prompt("Digite o valor em dinheiro"));
+      caixa.listaTotal();
+      const dinheiro = Number(prompt(`Total = R$ ${caixa.conta} \nDigite o valor recebido em dinheiro`));
       caixa.fecharConta(dinheiro);
       document.getElementById("mensagem").innerHTML = `Conta fechada com sucesso!`;
     }
