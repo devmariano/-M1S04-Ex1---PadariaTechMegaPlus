@@ -1,4 +1,4 @@
-# -M1S04-Ex1---PadariaTechMegaPlus
+# M1S04 Ex1 PadariaTechMegaPlus
 Exercício LAB 365 Modulo 1 [M1S04] Ex1 - PadariaTechMegaPlus 
 
 O seu Manoel gostou do último aplicativo e agora quer inovar.
