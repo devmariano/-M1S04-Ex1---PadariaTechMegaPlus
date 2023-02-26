@@ -3,22 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <title>Minha caixa registradora</title>
+  <link href="simple-grid.min.css" rel="stylesheet">
   <script src="CaixaRegistradora.js"></script>
 </head>
 <body>
-  <button onclick="iniciarAtendimento()">Iniciar atendimento</button>
-  <button onclick="adicionarItem()">Adicionar item</button>
-  <button onclick="fecharConta()">Fechar conta</button>
-  <p id="mensagem"></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h2>FUNÇÕES DE VENDA</h2>
+                <button onclick="iniciarAtendimento()">Iniciar atendimento</button>
+                <button onclick="adicionarItem()">Adicionar item</button>
+                <button onclick="fecharConta()">Fechar conta</button>
+                <p id="mensagem">--mensagem de status--</p>
+                <p id="resumo">--resumo da compra--</p>
+            </div>
+            <div class="col-6">
+                <h2>FUNÇÕES DE ESTOQUE</h2>
+                <div><button onclick="adicionarProduto()">Adicionar poduto ao estoque</button></div>
+                <br>
+                <div id="estoque-container"></div>
+            </div>
+        </div>
+    </div>
+ 
+
+
   <script>
     const caixa = new CaixaRegistradora();
+    //lista precarregada de estoque para teste
+    caixa.adicionarProduto(123, 10.0, "Arroz");
+    caixa.adicionarProduto(456, 5.5, "Feijão");
+    caixa.adicionarProduto(321, 6.0, "Leite");
+    caixa.adicionarProduto(234, 2.1, "Batata");
+    caixa.listarEstoqueHtml();
 
     function adicionarProduto() {
       const codigoBarra = Number(prompt("Digite o código de barras do produto"));
       const preco = Number(prompt("Digite o preço do produto"));
       const nome = prompt("Digite o nome do produto");
       caixa.adicionarProduto(codigoBarra, preco, nome);
-      alert("Produto adicionado ao estoque!");
+      caixa.listarEstoqueHtml();
+      alert(`Produto adicionado ao estoque!`);
+      
     }
 
     function iniciarAtendimento() {
@@ -31,7 +57,7 @@
       const codigoBarra = Number(prompt("Digite o código de barras do produto"));
       const quantidade = Number(prompt("Digite a quantidade desejada"));
       caixa.adicionarItem(codigoBarra, quantidade);
-      document.getElementById("mensagem").innerHTML = `Item adicionado à conta`;
+      //document.getElementById("mensagem").innerHTML = `Item adicionado à conta`;
     }
 
     function fecharConta() {

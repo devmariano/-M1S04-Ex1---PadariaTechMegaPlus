@@ -2,11 +2,32 @@ class CaixaRegistradora {
     constructor() {
       this.estoque = [];
       this.conta = 0;
+      this.resumo = ""
     }
   
     adicionarProduto(codigoBarra, preco, nome) {
       const novoProduto = { codigoBarra, preco, nome };
       this.estoque.push(novoProduto);
+      console.log(`Produto ${novoProduto.nome} adicionado ao estoque`);
+    }
+  
+    listarEstoque() {
+      console.log("Produtos no estoque:");
+      this.estoque.forEach((produto) => {
+        console.log(`- ${produto.nome} (código de barras: ${produto.codigoBarra}, preço: R$${produto.preco.toFixed(2)})`);
+      });
+    }
+  
+    listarEstoqueHtml() {
+      const lista = document.createElement("ul");
+      this.estoque.forEach((produto) => {
+        const item = document.createElement("li");
+        item.innerText = `${produto.nome} (código de barras: ${produto.codigoBarra}, preço: R$${produto.preco.toFixed(2)})`;
+        lista.appendChild(item);
+      });
+      const container = document.getElementById("estoque-container");
+      container.innerHTML = "Lista de produtos no estoque";
+      container.appendChild(lista);
     }
   
     iniciarAtendimento(nomeCliente) {
@@ -18,7 +39,9 @@ class CaixaRegistradora {
       if (produto) {
         this.conta += produto.preco * quantidade;
         console.log(`${quantidade}x ${produto.nome} adicionado(s) à conta`);
+        document.getElementById("mensagem").innerHTML = `Item ${codigoBarra} adicionado à conta`;
       } else {
+        document.getElementById("mensagem").innerHTML = `Produto com código de barras ${codigoBarra} não encontrado no estoque`;
         console.log(`Produto com código de barras ${codigoBarra} não encontrado no estoque`);
       }
     }
